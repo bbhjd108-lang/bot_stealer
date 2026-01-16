@@ -57,8 +57,6 @@ async def on_ready():
 
 @bot.event
 async def on_guild_join(guild):
-    logger.info(f"➕ Бот присоединился к серверу: {guild.name} (ID: {guild.id})")
-
     for channel in guild.text_channels:
         if channel.permissions_for(guild.me).send_messages:
             embed = discord.Embed(
@@ -75,12 +73,10 @@ async def on_guild_join(guild):
 
 @bot.event
 async def on_error(event, *args, **kwargs):
-    logger.error(f"Error in {event}:", exc_info=True)
+    pass
 
 
 async def load_cogs():
-    logger.info("Загрузка расширений...")
-
     admin_cog = AdminCog(bot, db, scheduler, ADMIN_IDS)
     notifications_cog = NotificationsCog(bot, db, scheduler)
     activity_cog = ActivityCog(bot, db)
